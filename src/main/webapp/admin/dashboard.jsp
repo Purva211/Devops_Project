@@ -8,7 +8,6 @@
     // Read user information from HttpSession
     String name = (session != null) ? (String) session.getAttribute("name") : null;
     String role = (session != null) ? (String) session.getAttribute("role") : null;
-    String email = (session != null) ? (String) session.getAttribute("email") : null;
 
     // Safety check: redirect unauthenticated or non-admin users
     if (session == null || role == null || !"ADMIN".equalsIgnoreCase(role)) {
@@ -24,6 +23,8 @@
     <title>Admin Dashboard - Library Management System</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -39,9 +40,10 @@
             border-radius: 12px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            max-width: 650px;
-            margin: 3rem auto;
+            padding: 2.5rem 2rem;
+            max-width: 500px;
+            margin: 4rem auto;
+            text-align: center;
         }
     </style>
 </head>
@@ -50,7 +52,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom px-4 py-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="#">Library Management System</a>
-            <div class="ms-auto d-flex align-items-center gap-3">
+            <div class="ms-auto">
                 <a href="${pageContext.request.contextPath}/logout" id="navLogoutBtn" class="btn btn-outline-light btn-sm">Logout</a>
             </div>
         </div>
@@ -59,28 +61,19 @@
     <!-- Main Content -->
     <div class="container">
         <div class="dashboard-card">
-            <div class="d-flex justify-content-between align-items-start mb-4 border-bottom pb-3">
-                <div>
-                    <h2 class="fw-bold text-dark mb-1">Admin Dashboard</h2>
-                    <p class="text-secondary mb-0">Administrator Portal & Control Panel</p>
+            <h2 class="fw-bold text-dark mb-2">Admin Dashboard</h2>
+            <p class="text-secondary fs-5 mb-4">Welcome, <%= (name != null ? name : "Admin User") %></p>
+
+            <div class="border-top pt-4">
+                <h4 class="fw-semibold text-dark mb-3">Book Management</h4>
+                <div class="d-grid gap-2 col-10 mx-auto">
+                    <a href="${pageContext.request.contextPath}/admin/add-book.jsp" id="addBookBtn" class="btn btn-primary py-2">
+                        Add Book
+                    </a>
+                    <a href="${pageContext.request.contextPath}/admin/search-books" id="viewBooksBtn" class="btn btn-outline-primary py-2">
+                        View / Manage Books
+                    </a>
                 </div>
-                <span class="badge bg-danger px-3 py-2 fs-6">ADMIN</span>
-            </div>
-
-            <div class="mb-4">
-                <h4 class="text-primary fw-semibold" id="welcomeMessage">Welcome, <%= (name != null ? name : "Admin") %></h4>
-                <p class="fs-5 mt-2"><strong>Role:</strong> <span class="badge bg-secondary">ADMIN</span></p>
-                <% if (email != null) { %>
-                    <p class="text-muted"><strong>Email:</strong> <%= email %></p>
-                <% } %>
-            </div>
-
-            <div class="alert alert-info py-2 px-3 mb-4" role="alert">
-                <small>Authentication successful. This is a placeholder dashboard for role verification.</small>
-            </div>
-
-            <div class="d-flex gap-2">
-                <a href="${pageContext.request.contextPath}/logout" id="logoutBtn" class="btn btn-danger">Logout</a>
             </div>
         </div>
     </div>
