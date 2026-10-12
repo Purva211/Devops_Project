@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📚 Library Management System (DevOps Project)
 
 A complete Java web-based **Library Management System** containerized with **Docker**, orchestrated using **Docker Compose**, and equipped with automated **CI/CD** testing and packaging via **Jenkins**.
@@ -168,3 +169,6 @@ The application dynamically detects configuration via environment variables:
 | `DB_USER` | MySQL user | `root` |
 | `DB_PASSWORD` | MySQL password | `root` (fallback: `anu@2505`) |
 | `DB_URL` | Complete JDBC URL override | Auto-generated from host/port/name |
+=======
+# Devops_Project
+>>>>>>> 5a80529cd776576a4e321b92d0be00b75715922e
