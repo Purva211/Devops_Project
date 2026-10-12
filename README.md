@@ -1,174 +1,258 @@
-<<<<<<< HEAD
-# 📚 Library Management System (DevOps Project)
+# 📚 Library Management System --- DevOps Project
 
-A complete Java web-based **Library Management System** containerized with **Docker**, orchestrated using **Docker Compose**, and equipped with automated **CI/CD** testing and packaging via **Jenkins**.
+A Java-based web application for managing library operations, including
+user registration, authentication, book catalogue management, issuing
+and returning books, and role-based access for administrators and
+students. The project demonstrates a DevOps workflow using **Maven,
+Docker, Docker Compose, MySQL, and Jenkins**.
 
----
+> **Project repository:**
+> [Purva211/Devops_Project](https://github.com/Purva211/Devops_Project)
 
-## 🚀 Features
+## ✨ Features
 
-- **Authentication & Authorization**:
-  - Role-Based Access Control (`ADMIN` and `STUDENT`).
-  - Secure registration, login, session management, and logout.
-- **Book Catalogue Management (Admin)**:
-  - Add new books (Title, Author, Category, Quantity).
-  - Track total vs. available book stock dynamically.
-- **Issue & Return Workflow**:
-  - Students can browse available catalogue books and issue them.
-  - Return books with real-time stock quantity updates.
-  - View personal issued book history.
-- **Responsive UI**:
-  - Styled with Bootstrap 5.3 and custom modern themes.
-- **Automated CI/CD & Containerization**:
-  - Multi-stage Docker build producing a lightweight Apache Tomcat 9 production image.
-  - Docker Compose service definition linking MySQL 8.0 and the Tomcat web app.
-  - Automated Jenkins pipeline for continuous compilation, unit testing, and WAR packaging.
+-   **Authentication:** User registration, login, logout, and
+    session-based access.
+-   **Role-based access:** Separate Admin and Student experiences.
+-   **Book management:** Add, search, update, and delete books (admin
+    functions).
+-   **Issue and return:** Issue available books, return books, and
+    update availability.
+-   **Issue history:** View issued-book information.
+-   **Relational database:** MySQL persistence through JDBC.
+-   **Automated testing:** JUnit 5 and Mockito test dependencies.
+-   **Containerization:** Docker image for the application and Docker
+    Compose services for the app and database.
+-   **CI pipeline:** Jenkins stages for build, test, and WAR packaging.
 
----
+## 🧰 Tech Stack
 
-## 🛠️ Technology Stack
+  Area         Technologies
+  ------------ ------------------------------------------
+  Language     Java 8
+  Web          Java Servlets, JSP, HTML, CSS, Bootstrap
+  Database     MySQL 8, JDBC
+  Build        Apache Maven
+  App server   Apache Tomcat 9
+  Testing      JUnit 5, Mockito
+  Containers   Docker, Docker Compose
+  CI           Jenkins Declarative Pipeline
 
-| Layer | Technology |
-|---|---|
-| **Language & Runtime** | Java 8 (OpenJDK / Eclipse Temurin) |
-| **Web Framework** | Java Servlets (3.1.0), JSP |
-| **Persistence / Database** | JDBC, MySQL 8.0 (`library_db`) |
-| **Frontend UI** | JSP, Bootstrap 5.3.3, Google Fonts |
-| **Testing** | JUnit Jupiter 5.10.2, Mockito 4.11.0 |
-| **Build & Dependency Tool** | Apache Maven 3.9+ |
-| **Application Server** | Apache Tomcat 9.0 |
-| **Containerization** | Docker (Multi-stage build), Docker Compose |
-| **CI/CD Automation** | Jenkins Declarative Pipeline (`Jenkinsfile`) |
+## 🗂️ Project Structure
 
----
-
-## 📁 Project Structure
-
-```text
+``` text
 Devops_Project/
-├── Dockerfile                  # Multi-stage Docker build (Maven build + Tomcat 9 runtime)
-├── docker-compose.yml          # Container orchestration (Web app + MySQL 8.0)
-├── .dockerignore               # Build context ignore rules
-├── Jenkinsfile                 # CI pipeline (Checkout -> Build -> Test -> Package)
-├── library_db_setup.sql        # Database schema and seed data
-├── pom.xml                     # Maven project configuration and dependencies
+├── Dockerfile
+├── docker-compose.yml
+├── Jenkinsfile
+├── pom.xml
+├── library_db_setup.sql
+├── .dockerignore
 └── src/
     ├── main/
     │   ├── java/com/library/
-    │   │   ├── dao/            # Data Access Objects (UserDAO, BookDAO, IssueDAO)
-    │   │   ├── filter/         # Security & authentication filters
-    │   │   ├── model/          # Entities (User, Book, Issue)
-    │   │   ├── servlet/        # HTTP Servlets (Login, Register, Book, Issue, etc.)
-    │   │   └── util/           # DBConnection with environment variable overrides
-    │   └── webapp/             # JSP pages, CSS, and web.xml
+    │   │   ├── dao/        # Database access classes
+    │   │   ├── filter/     # Authentication and access filters
+    │   │   ├── model/      # User, Book, and Issue models
+    │   │   ├── servlet/    # Authentication and library operations
+    │   │   └── util/       # Database connection utility
+    │   └── webapp/         # JSP pages and web resources
     └── test/
-        └── java/com/library/   # Unit and servlet mock tests (JUnit 5 + Mockito)
+        └── java/com/library/ # Unit and servlet tests
 ```
 
----
+## ✅ Prerequisites
 
-## 🐳 Quick Start with Docker
+Choose either Docker-based setup or local development.
 
-### 1. Run Everything with Docker Compose (Recommended)
+**Docker setup** - Docker Desktop (Windows/macOS) or Docker Engine -
+Docker Compose v2
 
-Run both MySQL 8.0 and the web application with a single command:
+**Local setup** - JDK 8 - Apache Maven 3.8+ - MySQL 8 - Apache Tomcat 9,
+or a configured Maven Tomcat plugin if supported by the project
 
-```bash
-docker compose up -d --build
+## 🚀 Run with Docker Compose
+
+Run the following commands from the directory containing
+`docker-compose.yml`:
+
+``` bash
+docker compose up --build -d
 ```
 
-- **Web Application**: Accessible at `http://localhost:8085/` or `http://localhost:8085/LibraryManagementSystem/`
-- **MySQL Database**: Running on port `3307` (`library_db`)
-- Automatic database schema and sample data initialization via `library_db_setup.sql`.
+Check running containers:
 
-To stop the containers:
-```bash
+``` bash
+docker compose ps
+```
+
+Open the application:
+
+-   **Web application:** http://localhost:8085/
+-   **Alternative context path (if deployed):**
+    http://localhost:8085/LibraryManagementSystem/
+
+The Compose configuration maps MySQL to host port `3307` and the web app
+to host port `8085`. The database service uses `library_db`.
+
+View logs:
+
+``` bash
+docker compose logs -f
+```
+
+Stop the services:
+
+``` bash
 docker compose down
 ```
 
----
+Stop services and remove the database volume (**this deletes persisted
+database data**):
 
-### 2. Standalone Docker Image Build & Run
-
-#### Build Docker Image:
-```bash
-docker build -t library-management-system:latest .
+``` bash
+docker compose down -v
 ```
 
-#### Run the Container:
-```bash
-docker run -d -p 8080:8080 \
-  -e DB_HOST=host.docker.internal \
-  -e DB_PORT=3306 \
-  -e DB_NAME=library_db \
-  -e DB_USER=root \
-  -e DB_PASSWORD=root \
-  --name library-app \
-  library-management-system:latest
-```
+> **Note:** The first MySQL startup initializes the database from the
+> configured SQL file. If the database volume already exists, MySQL
+> generally will not rerun initialization scripts automatically.
 
-Application URL: `http://localhost:8080/`
+## 💻 Local Development
 
----
+Run these commands from the directory containing `pom.xml`.
 
-## 💻 Local Development Setup (Without Docker)
+### 1. Configure the database
 
-### Prerequisites
-- JDK 8 or higher
-- Apache Maven 3.8+
-- MySQL Server running locally on port `3306`
+Create the database and tables using the supplied SQL script:
 
-### 1. Database Setup
-Import the database schema:
-```bash
+``` bash
 mysql -u root -p < library_db_setup.sql
 ```
 
-### 2. Run with Maven Tomcat Plugin
-```bash
-mvn clean compile
-mvn tomcat7:run
-```
-Access the application at `http://localhost:8085/LibraryManagementSystem/`.
+Update the database connection settings used by the application to match
+your local MySQL host, port, database, username, and password. Do not
+commit real passwords or other credentials to GitHub.
 
-### 3. Run Unit Tests
-```bash
+### 2. Build and test
+
+``` bash
+mvn clean test
+```
+
+Build the deployable WAR file:
+
+``` bash
+mvn clean package
+```
+
+The WAR artifact is normally created under:
+
+``` text
+target/LibraryManagementSystem.war
+```
+
+Deploy the WAR to a compatible Tomcat 9 server to run the web
+application.
+
+## 🧪 Tests
+
+Run the automated tests with:
+
+``` bash
 mvn test
 ```
 
----
+To run a clean build including tests and packaging:
 
-## 🔐 Default Credentials
+``` bash
+mvn clean verify
+```
 
-| Role | Email | Password |
-|---|---|---|
-| **Admin** | `admin@library.com` | `admin123` |
-| **Student** | Registered via `/register.jsp` | As configured |
+## 🐳 Docker Image
 
----
+Build the image from the directory expected by the Dockerfile:
 
-## 🔄 CI/CD Pipeline (Jenkins)
+``` bash
+docker build -t library-management-system:latest .
+```
 
-The project includes a declarative `Jenkinsfile` configuring:
-1. **Checkout**: Retrieves source code from GitHub.
-2. **Build**: Compiles source code with `mvn clean compile`.
-3. **Test**: Executes unit tests with `mvn test` (JUnit 5 & Mockito).
-4. **Package**: Builds the WAR file with `mvn package -DskipTests` and archives `target/*.war`.
+If using the standalone image, configure the database environment
+variables to match a reachable MySQL instance:
 
----
+  -----------------------------------------------------------------------
+  Variable                Purpose                 Example for Compose
+  ----------------------- ----------------------- -----------------------
+  `DB_HOST`               MySQL hostname          `mysql`
 
-## ⚙️ Environment Variables
+  `DB_PORT`               MySQL port inside the   `3306`
+                          Docker network          
 
-The application dynamically detects configuration via environment variables:
+  `DB_NAME`               Database name           `library_db`
 
-| Variable | Description | Default |
-|---|---|---|
-| `DB_HOST` | MySQL hostname / service name | `localhost` |
-| `DB_PORT` | MySQL port | `3306` |
-| `DB_NAME` | Database name | `library_db` |
-| `DB_USER` | MySQL user | `root` |
-| `DB_PASSWORD` | MySQL password | `root` (fallback: `anu@2505`) |
-| `DB_URL` | Complete JDBC URL override | Auto-generated from host/port/name |
-=======
-# Devops_Project
->>>>>>> 5a80529cd776576a4e321b92d0be00b75715922e
+  `DB_USER`               Database username       `root`
+
+  `DB_PASSWORD`           Database password       Set locally; do not
+                                                  commit secrets
+  -----------------------------------------------------------------------
+
+For Docker Compose, the hostname `mysql` works because both services
+share a Docker network.
+
+## 🔁 Jenkins CI Pipeline
+
+The repository includes a `Jenkinsfile` with the following stages:
+
+1.  **Checkout** --- identifies the source-control stage.
+2.  **Build** --- compiles the Java project with Maven.
+3.  **Test** --- runs automated tests.
+4.  **Package** --- produces the WAR artifact and archives it.
+
+### Jenkins setup checklist
+
+-   Configure a Jenkins agent with the required JDK and Maven.
+-   Configure the Maven tool name referenced in the `Jenkinsfile`
+    (currently `Maven3`).
+-   Ensure the job checks out this repository and runs from the
+    directory containing `pom.xml`.
+-   If the Jenkins agent runs Linux, change Windows-specific `bat`
+    pipeline steps to `sh`.
+-   Verify the archived artifact path matches the actual Maven output
+    directory.
+
+## 🔐 Configuration and Security
+
+-   Configure database credentials through environment variables or a
+    secure secret store where supported.
+-   Never commit API keys, passwords, private keys, or production
+    credentials.
+-   Change any sample/default credentials before using the application
+    outside a local demo.
+-   Use HTTPS and production-grade session/security settings before
+    deployment.
+
+## 🛠️ Troubleshooting
+
+**Docker containers are running but the application cannot connect to
+MySQL** - Check `docker compose ps` and
+`docker compose logs mysql web`. - Confirm the app uses `DB_HOST=mysql`
+and `DB_PORT=3306` inside Compose. - Wait for the MySQL health check to
+pass.
+
+**Port already in use** - Stop the process using the conflicting port or
+update the port mapping in `docker-compose.yml`.
+
+**Maven build fails** - Check the installed Java and Maven versions with
+`java -version` and `mvn -version`. - Run `mvn clean test` and review
+the first compilation or test error.
+
+**Changes to the SQL initialization script are not applied** - MySQL
+initialization scripts run when the data directory is first initialized.
+Back up any data before considering removal of the Compose volume.
+
+## 🎯 Learning Outcomes
+
+This project demonstrates how a Java web application can be built,
+tested, packaged, containerized, connected to a relational database, and
+prepared for a Jenkins-based CI workflow.
+
