@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building Java application'
+                bat 'mvn clean package'
             }
         }
 
