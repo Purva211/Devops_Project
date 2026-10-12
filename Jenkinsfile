@@ -12,9 +12,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                withMaven(maven: 'Maven3') {
-                    bat 'mvn clean package'
-                }
+                bat 'mvn clean package'
             }
         }
 
