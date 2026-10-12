@@ -27,16 +27,47 @@ Docker, Docker Compose, MySQL, and Jenkins**.
 
 ## 🧰 Tech Stack
 
-  Area         Technologies
-  ------------ ------------------------------------------
-  Language     Java 8
-  Web          Java Servlets, JSP, HTML, CSS, Bootstrap
-  Database     MySQL 8, JDBC
-  Build        Apache Maven
-  App server   Apache Tomcat 9
-  Testing      JUnit 5, Mockito
-  Containers   Docker, Docker Compose
-  CI           Jenkins Declarative Pipeline
+The technologies used in this project are listed below. These badges are clickable visual labels and should render clearly on GitHub.
+
+### Backend
+![Java](https://img.shields.io/badge/Java-8-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Servlets](https://img.shields.io/badge/Java-Servlets-5382A1?style=for-the-badge)
+![JSP](https://img.shields.io/badge/JSP-JavaServer_Pages-5382A1?style=for-the-badge)
+![JDBC](https://img.shields.io/badge/JDBC-Database_Access-4479A1?style=for-the-badge)
+
+### Frontend
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![JSP Views](https://img.shields.io/badge/Views-JSP-5382A1?style=for-the-badge)
+
+### Database and Build
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Maven](https://img.shields.io/badge/Apache_Maven-Build-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
+![JUnit 5](https://img.shields.io/badge/JUnit-5-25A162?style=for-the-badge&logo=junit5&logoColor=white)
+![Mockito](https://img.shields.io/badge/Mockito-Testing-78A641?style=for-the-badge)
+
+### DevOps and Deployment
+![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Docker Compose](https://img.shields.io/badge/Docker_Compose-Multi--container-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-CI-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
+![Apache Tomcat](https://img.shields.io/badge/Apache_Tomcat-9-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black)
+![Git](https://img.shields.io/badge/Git-Version_Control-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-Source_Control-181717?style=for-the-badge&logo=github&logoColor=white)
+
+| Area | Technology |
+|---|---|
+| Programming language | Java 8 |
+| Web layer | Java Servlets, JSP |
+| Frontend | HTML, CSS, Bootstrap |
+| Database connectivity | JDBC |
+| Database | MySQL 8 |
+| Build and dependency management | Apache Maven |
+| Application server | Apache Tomcat 9 |
+| Testing | JUnit 5, Mockito |
+| Containerization | Docker, Docker Compose |
+| Continuous integration | Jenkins |
+| Version control | Git, GitHub |
 
 ## 🗂️ Project Structure
 
