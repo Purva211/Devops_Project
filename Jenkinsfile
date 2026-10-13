@@ -43,6 +43,7 @@ pipeline {
                 echo "Building integrated Docker image: ${IMAGE_NAME}:${BUILD_NUMBER}..."
                 withEnv([
                     'PATH+DOCKER=C:\\Users\\admin\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin',
+                    'DOCKER_CONFIG=C:\\Users\\admin\\.docker',
                     'DOCKER_BUILDKIT=1'
                 ]) {
                     bat "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
