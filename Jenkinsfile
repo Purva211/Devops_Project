@@ -5,6 +5,10 @@ pipeline {
         maven 'Maven3'
     }
 
+    environment {
+        IMAGE_NAME = 'library-management-system'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -33,19 +37,26 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', allowEmptyArchive: true
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                echo "Building Docker container image: ${IMAGE_NAME}:${BUILD_NUMBER} and latest..."
+                bat "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+            }
+        }
     }
 
     post {
         success {
             echo '====================================================='
-            echo ' CI Pipeline completed successfully!                '
-            echo ' WAR artifact generated and archived in target/     '
+            echo ' CI/CD Pipeline completed successfully!             '
+            echo " Docker Image: ${IMAGE_NAME}:${BUILD_NUMBER} created! "
             echo '====================================================='
         }
 
         failure {
             echo '====================================================='
-            echo ' CI Pipeline failed! Check logs for details.        '
+            echo ' CI/CD Pipeline failed! Check logs for details.     '
             echo '====================================================='
         }
     }
