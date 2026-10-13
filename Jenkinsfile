@@ -22,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Executing unit tests...'
-                bat 'mvn test -DargLine="-XX:+EnableDynamicAgentLoading"'
+                bat 'mvn test -DargLine="-XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true"'
             }
         }
 
