@@ -1,6 +1,10 @@
 **/target/
-**/.git/
-**/.gitignore
+.git
+.gitignore
+.idea
+.vscode
 *.iml
-.idea/
-.vscode/
+*.log
+.env
+.env.*
+!.env.example

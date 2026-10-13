@@ -2,38 +2,41 @@ services:
   mysql:
     image: mysql:8.0
     container_name: library-mysql
-    restart: always
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
       MYSQL_DATABASE: library_db
+      MYSQL_USER: ${MYSQL_USER:-library_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
     ports:
       - "3307:3306"
     volumes:
-      - ./Devops_Project/library_db_setup.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - mysql_data:/var/lib/mysql
-    networks:
-      - library-net
+      - ./Devops_Project/library_db_setup.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
-      interval: 5s
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$${MYSQL_ROOT_PASSWORD:-root} --silent"]
+      interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 30s
+    networks:
+      - library-net
 
   web:
     build:
       context: .
       dockerfile: Dockerfile
     image: library-management-system:latest
-    container_name: library-web
-    restart: always
+    container_name: library-tomcat
+    restart: unless-stopped
     ports:
       - "8085:8080"
     environment:
       DB_HOST: mysql
-      DB_PORT: 3306
+      DB_PORT: "3306"
       DB_NAME: library_db
       DB_USER: root
-      DB_PASSWORD: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
     depends_on:
       mysql:
         condition: service_healthy

@@ -3,8 +3,8 @@ FROM maven:3.9-eclipse-temurin-8 AS build
 WORKDIR /app
 
 # Copy pom.xml and source code
-COPY Devops_Project/pom.xml .
-COPY Devops_Project/src ./src
+COPY pom.xml .
+COPY src ./src
 
 # Compile classes, run all unit tests, and package the WAR file
 RUN mvn clean test package
