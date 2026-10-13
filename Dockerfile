@@ -1,21 +1,12 @@
-# Multi-stage Dockerfile for Devops_Project
-FROM maven:3.9-eclipse-temurin-8 AS build
-WORKDIR /app
-
-# Copy pom.xml and source code
-COPY pom.xml .
-COPY src ./src
-
-# Compile classes, run all unit tests, and package the WAR file
-RUN mvn clean test package
-
-# Runtime stage: Apache Tomcat 9
+# Apache Tomcat 9 runtime
 FROM tomcat:9.0-jre8-temurin
 
+# Remove default Tomcat webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY --from=build /app/target/LibraryManagementSystem.war /usr/local/tomcat/webapps/ROOT.war
-COPY --from=build /app/target/LibraryManagementSystem.war /usr/local/tomcat/webapps/LibraryManagementSystem.war
+# Copy the pre-built, tested WAR artifact produced by Jenkins Maven build
+COPY target/LibraryManagementSystem.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/LibraryManagementSystem.war /usr/local/tomcat/webapps/LibraryManagementSystem.war
 
 ENV DB_HOST=mysql \
     DB_PORT=3306 \

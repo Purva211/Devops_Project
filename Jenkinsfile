@@ -40,8 +40,10 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                echo "Building Docker container image: ${IMAGE_NAME}:${BUILD_NUMBER} and latest..."
-                bat "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+                echo "Building integrated Docker image: ${IMAGE_NAME}:${BUILD_NUMBER}..."
+                withEnv(['PATH+DOCKER=C:\\Users\\admin\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin']) {
+                    bat "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} -t ${IMAGE_NAME}:latest ."
+                }
             }
         }
     }
