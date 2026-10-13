@@ -6,9 +6,12 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/library_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "anu@2505";
+    private static final String HOST = System.getenv("DB_HOST") != null ? System.getenv("DB_HOST") : "localhost";
+    private static final String PORT = System.getenv("DB_PORT") != null ? System.getenv("DB_PORT") : "3306";
+    private static final String DBNAME = System.getenv("DB_NAME") != null ? System.getenv("DB_NAME") : "library_db";
+    private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DBNAME + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String USER = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : "root";
+    private static final String PASSWORD = System.getenv("DB_PASSWORD") != null ? System.getenv("DB_PASSWORD") : "anu@2505";
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 
     static {

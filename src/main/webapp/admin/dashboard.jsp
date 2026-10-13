@@ -73,6 +73,9 @@
                     <a href="${pageContext.request.contextPath}/admin/search-books" id="viewBooksBtn" class="btn btn-outline-primary py-2">
                         View / Manage Books
                     </a>
+                    <a href="${pageContext.request.contextPath}/admin/issued-books.jsp" id="viewIssuedBooksBtn" class="btn btn-outline-dark py-2">
+                        Issued Books History
+                    </a>
                 </div>
             </div>
         </div>

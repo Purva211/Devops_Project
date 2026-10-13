@@ -1,6 +1,9 @@
 target/
 *.class
+*.log
 .project
 .classpath
 .settings/
-*.log
+.idea/
+*.iml
+.vscode/

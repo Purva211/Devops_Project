@@ -124,7 +124,7 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-between align-items-center pt-2">
-                    <a href="${pageContext.request.contextPath}/admin/books" id="cancelBtn" class="btn btn-outline-secondary">
+                    <a href="${pageContext.request.contextPath}/admin/search-books" id="cancelBtn" class="btn btn-outline-secondary">
                         &larr; Cancel / Back to Books
                     </a>
                     <button type="submit" id="addBookSubmitBtn" class="btn btn-primary px-4">
